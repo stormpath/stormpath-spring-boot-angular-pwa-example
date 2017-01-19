@@ -12,7 +12,7 @@ import { environment } from '../environments/environment';
 export function stormpathConfig(): StormpathConfiguration {
   let spConfig: StormpathConfiguration = new StormpathConfiguration();
   if (environment.production) {
-    spConfig.endpointPrefix = 'https://pwa-service.cfapps.io';
+    spConfig.endpointPrefix = 'https://pwa-server.cfapps.io';
   } else {
     spConfig.endpointPrefix = 'http://localhost:8080';
   }  return spConfig;
