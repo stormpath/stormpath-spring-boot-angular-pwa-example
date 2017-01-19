@@ -9,7 +9,8 @@
     Welcome, {{ ( user$ | async ).fullName }}<br>
     <a href="" (click)="logout(); false">Logout</a>
   </span>
-  <div>
+  <md-progress-bar mode="indeterminate" *shellRender></md-progress-bar>
+  <div *shellNoRender>
     <beer-list></beer-list>
   </div>
 </div>

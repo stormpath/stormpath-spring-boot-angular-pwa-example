@@ -6,6 +6,7 @@ import { AppComponent } from './app.component';
 import { StormpathConfiguration, StormpathModule } from 'angular-stormpath';
 import { BeerListComponent } from './beer-list/beer-list.component';
 import { MaterialModule } from '@angular/material';
+import { AppShellModule } from '@angular/app-shell';
 
 export function stormpathConfig(): StormpathConfiguration {
   let spConfig: StormpathConfiguration = new StormpathConfiguration();
@@ -23,6 +24,7 @@ export function stormpathConfig(): StormpathConfiguration {
     FormsModule,
     HttpModule,
     MaterialModule.forRoot(),
+    AppShellModule.runtime(),
     StormpathModule
   ],
   providers: [{
