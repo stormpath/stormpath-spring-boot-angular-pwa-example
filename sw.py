@@ -20,7 +20,10 @@ if __name__ == '__main__':
     for r in [x for x in results if x.strip() != '']:
       root = r.split('.bundle.js')[0]
       root = root[2:].strip()
-      match = [a for a in os.listdir(dist_dir) if a.startswith(root) and a.endswith('.js')][0]
+      suffix = '.js'
+      if root == 'styles':
+        suffix = '.css'
+      match = [a for a in os.listdir(dist_dir) if a.startswith(root) and a.endswith(suffix)][0]
       find = r
       replace = './' + match
       print(find, '=>', replace)

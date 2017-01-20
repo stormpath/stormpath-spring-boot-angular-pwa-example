@@ -33,47 +33,51 @@ cf d -f pwa-client
 cf d -f pwa-server
 
 cf a
-cf s
-
-# Build the server
-cd $r && find . -iname pom.xml | xargs -I pom  mvn -DskipTests clean install -f pom
-
-# Deploy the client first
-cd $r/client
-#rm -rf node_modules
-npm install && ng build --prod --aot
-python $r/sw.py
-cd dist
-touch Staticfile
-cf push pwa-client --no-start --random-route
-cf set-env pwa-client FORCE_HTTPS true
 
 # Stormpath
 stormpathApiKeyId=`cat ~/.stormpath/apiKey.properties | grep apiKey.id | cut -f3 -d\ `
 stormpathApiKeySecret=`cat ~/.stormpath/apiKey.properties | grep apiKey.secret | cut -f3 -d\ `
 
-# Beer Service
+# Deploy the server
 cd $r/server
 mvn clean package
-cf push -p target/*jar pwa-service --no-start  --random-route
-cf set-env pwa-service STORMPATH_API_KEY_ID $stormpathApiKeyId
-cf set-env pwa-service STORMPATH_API_KEY_SECRET $stormpathApiKeySecret
+cf push -p target/*jar pwa-server --no-start  --random-route
+cf set-env pwa-server STORMPATH_API_KEY_ID $stormpathApiKeyId
+cf set-env pwa-server STORMPATH_API_KEY_SECRET $stormpathApiKeySecret
 
-# Get the URLs for the client and server
-clientUri = https://`app_domain pwa-client`
-serverUri = https://`app_domain pwa-client`
+# Get the URL for the server
+serverUri=https://`app_domain pwa-server`
 
-echo 'CLIENT_URL: $clientUri'
-echo 'SERVER_URL: $serverUri'
-
+# Deploy the client
+cd $r/client
+rm -rf dist
 # replace the server URL in the client
-sed -i -e 's/pwa-service/${serverUri}/g' $r/client/dist/main.*.bundle.js
-# replace the client URL in the server
-sed -i -e 's/pwa-client/${clientUri}/g' $r/server/src/main/resources/application.properties
+sed -i -e "s|https://pwa-server.cfapps.io|$serverUri|g" $r/client/src/app/app.module.ts
+npm install && ng build --prod --aot
+# Fix filenames in sw.js
+python $r/sw.py
+cd dist
+touch Staticfile
+cf push pwa-client --no-start --random-route
+cf set-env pwa-client FORCE_HTTPS true
+cf start pwa-client
 
-# redeploy both client and server
-cd $r/client/dist
-cf push pwa-client
+# Get the URL for the client
+clientUri=https://`app_domain pwa-client`
+
+# replace the client URL in the server
+sed -i -e "s|https://pwa-client.cfapps.io|$clientUri|g" $r/server/src/main/resources/application.properties
+
+# redeploy the server
 cd $r/server
-mvn package
-cf push pwa-server
+mvn package -DskipTests
+cf push -p target/*jar pwa-server
+
+# cleanup changed files
+git checkout $r/client
+git checkout $r/server
+rm $r/client/src/app/app.module.ts-e
+rm $r/server/src/main/resources/application.properties-e
+
+# show apps and URLs
+cf apps
