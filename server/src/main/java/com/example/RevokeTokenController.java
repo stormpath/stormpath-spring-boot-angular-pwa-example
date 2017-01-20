@@ -21,7 +21,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import static com.stormpath.sdk.servlet.filter.oauth.DefaultAccessTokenRequestAuthorizer.FORM_MEDIA_TYPE;
 
-@RestController
+//@RestController
 public class RevokeTokenController extends AbstractController {
 
     private static final Logger log = LoggerFactory.getLogger(RevokeTokenController.class);
@@ -31,7 +31,7 @@ public class RevokeTokenController extends AbstractController {
     private final static String TOKEN_TYPE_HINT = "token_type_hint";
 
     @Override
-    @PostMapping("/oauth/revoke")
+    //@PostMapping("/oauth/revoke")
     protected ViewModel doPost(HttpServletRequest request, HttpServletResponse response) throws Exception {
 
         OAuthRevocationRequestBuilder builder = OAuthRequests.OAUTH_TOKEN_REVOCATION_REQUEST.builder();
