@@ -1,4 +1,7 @@
 #!/bin/bash
+# Warning: this script has only been tested on macOS Sierra. There's a good chance
+# it won't work on other operating systems. If you get it working on another OS,
+# please send a pull request with any changes required. Thanks!
 set -e
 
 ### CloudFoundry CLI utilities
