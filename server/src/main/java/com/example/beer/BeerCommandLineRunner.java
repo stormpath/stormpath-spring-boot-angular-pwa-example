@@ -7,6 +7,7 @@ import java.util.stream.Stream;
 
 @Component
 class BeerCommandLineRunner implements CommandLineRunner {
+    private final BeerRepository repository;
 
     public BeerCommandLineRunner(BeerRepository repository) {
         this.repository = repository;
@@ -20,6 +21,4 @@ class BeerCommandLineRunner implements CommandLineRunner {
         );
         System.out.println(repository.findAll());
     }
-
-    private final BeerRepository repository;
 }
