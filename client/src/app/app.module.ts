@@ -3,7 +3,7 @@ import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { AppComponent } from './app.component';
-import { StormpathConfiguration, StormpathModule } from 'angular-stormpath';
+import { StormpathConfiguration, StormpathModule, CookieTokenStoreManager } from 'angular-stormpath';
 import { BeerListComponent } from './beer-list/beer-list.component';
 import { MaterialModule } from '@angular/material';
 import { AppShellModule } from '@angular/app-shell';
@@ -31,9 +31,10 @@ export function stormpathConfig(): StormpathConfiguration {
     AppShellModule.runtime(),
     StormpathModule
   ],
-  providers: [{
-    provide: StormpathConfiguration, useFactory: stormpathConfig
-  }],
+  providers: [
+    {provide: StormpathConfiguration, useFactory: stormpathConfig},
+    {provide: 'tokenStore', useClass: CookieTokenStoreManager}
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
