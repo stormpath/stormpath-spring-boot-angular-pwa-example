@@ -1,12 +1,16 @@
 import { TestBed, async } from '@angular/core/testing';
 import { AppComponent } from './app.component';
+import { StormpathModule } from 'angular-stormpath';
+import { MaterialModule } from '@angular/material';
+import { BeerListComponent } from './beer-list/beer-list.component';
 
 describe('AppComponent', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
       declarations: [
-        AppComponent
+        AppComponent, BeerListComponent
       ],
+      imports: [StormpathModule, MaterialModule]
     });
     TestBed.compileComponents();
   });
@@ -23,10 +27,10 @@ describe('AppComponent', () => {
     expect(app.title).toEqual('app works!');
   }));
 
-  it('should render title in a h1 tag', async(() => {
+  it('should render title in an md-toolbar tag', async(() => {
     const fixture = TestBed.createComponent(AppComponent);
     fixture.detectChanges();
     const compiled = fixture.debugElement.nativeElement;
-    expect(compiled.querySelector('h1').textContent).toContain('app works!');
+    expect(compiled.querySelector('md-toolbar span').textContent).toContain('app works!');
   }));
 });

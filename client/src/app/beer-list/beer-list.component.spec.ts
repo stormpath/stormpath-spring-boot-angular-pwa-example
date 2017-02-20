@@ -4,6 +4,8 @@ import { By } from '@angular/platform-browser';
 import { DebugElement } from '@angular/core';
 
 import { BeerListComponent } from './beer-list.component';
+import { MaterialModule } from '@angular/material';
+import { StormpathModule } from 'angular-stormpath';
 
 describe('BeerListComponent', () => {
   let component: BeerListComponent;
@@ -11,7 +13,8 @@ describe('BeerListComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ BeerListComponent ]
+      declarations: [BeerListComponent],
+      imports: [MaterialModule, StormpathModule]
     })
     .compileComponents();
   }));
