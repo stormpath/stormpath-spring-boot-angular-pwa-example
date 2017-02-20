@@ -10,8 +10,7 @@
       "outDir": "dist",
       "assets": [
         "assets",
-        "sw.js",
-        "manifest.webmanifest"
+        "favicon.ico"
       ],
       "index": "index.html",
       "main": "main.ts",

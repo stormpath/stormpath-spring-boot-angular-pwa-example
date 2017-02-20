@@ -5,17 +5,10 @@ import { HttpModule } from '@angular/http';
 import { AppComponent } from './app.component';
 import { StormpathConfiguration, StormpathModule } from 'angular-stormpath';
 import { BeerListComponent } from './beer-list/beer-list.component';
-import { MaterialModule } from '@angular/material';
-import { AppShellModule } from '@angular/app-shell';
-import { environment } from '../environments/environment';
 
 export function stormpathConfig(): StormpathConfiguration {
   let spConfig: StormpathConfiguration = new StormpathConfiguration();
-  if (environment.production) {
-    spConfig.endpointPrefix = 'https://pwa-server.cfapps.io';
-  } else {
-    spConfig.endpointPrefix = 'http://localhost:8080';
-  }  return spConfig;
+  spConfig.endpointPrefix = 'http://localhost:8080';
 }
 
 @NgModule({
@@ -27,8 +20,6 @@ export function stormpathConfig(): StormpathConfiguration {
     BrowserModule,
     FormsModule,
     HttpModule,
-    MaterialModule.forRoot(),
-    AppShellModule.runtime(),
     StormpathModule
   ],
   providers: [{

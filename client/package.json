@@ -23,8 +23,6 @@
     "core-js": "^2.4.1",
     "rxjs": "^5.1.0",
     "zone.js": "^0.7.6",
-    "@angular/app-shell": "^0.1.0",
-    "@angular/material": "^2.0.0-beta.1",
     "angular-stormpath": "^0.1.6",
     "bootstrap": "^3.3.7"
   },
