@@ -27,7 +27,7 @@ export function stormpathConfig(): StormpathConfiguration {
     BrowserModule,
     FormsModule,
     HttpModule,
-    MaterialModule.forRoot(),
+    MaterialModule,
     AppShellModule.runtime(),
     StormpathModule
   ],
